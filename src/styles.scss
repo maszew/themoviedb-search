@@ -2,6 +2,10 @@
 @import 'variables';
 @import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
 
+*:focus {
+  outline: none;
+}
+
 .font-bold {
   font-weight: bold;
 }
