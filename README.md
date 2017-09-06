@@ -8,7 +8,7 @@ Node 6.9.0 or higher is required, together with NPM 3 or higher. To use below co
 
 ## Installation
 
-After cloning this repo, run `npm install` in the project folder. Then you need to generate your own API key to access https://api.themoviedb.org/3. This key should be pasted in the '%project%/src/app/tmd-search/config.json' file, instead of < key>. Now you can use below commands and test the app.
+After cloning this repo, run `npm install` in the project folder. Then you need to generate your own API key to access https://api.themoviedb.org/3. This key should be pasted in the '%project%/src/app/tmd-search/config.json' file, instead of \<key>. Now you can use below commands and test the app.
 
 ## Development server
 
