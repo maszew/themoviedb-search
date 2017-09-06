@@ -24,4 +24,10 @@
       </div>
     </div>
   </div>
+  <div class="text-center">
+    <span class="pagination" *ngFor="let page of pages">
+      <a class="pagination-link padding-lr" *ngIf="page != currentPage" (click)="search(page)">{{page}}</a>
+      <b class="padding-lr" *ngIf="page == currentPage">{{page}}</b>
+    </span>
+  </div>
 </div>

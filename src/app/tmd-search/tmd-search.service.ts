@@ -30,7 +30,7 @@ export class TmdSearchService {
       let queryEncoder: QueryEncoder = new QueryEncoder();
       let searchParameters: URLSearchParams = new URLSearchParams();
 
-      searchParameters.set('api_key', 'af1268643901e99d9bd71f7e55b1fa21');//config['api-key']);
+      searchParameters.set('api_key', config['api-key']);
 
       for(let key of queryParametersKeys) {
         if(typeof queryParameters[key] !== 'undefined') {

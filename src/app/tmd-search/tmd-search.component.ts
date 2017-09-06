@@ -15,12 +15,13 @@ import { SearchQueryParameters } from './search-query-parameters.model'
  * @class
  */
 export class TmdSearchComponent implements OnInit {
-
   movies: Object = {};
   totalPages: number = 0;
   imageBaseUrl: string = config['image-url'];
   searchQuery: string = '';
   forAdults: boolean = false;
+  pages: Array<number> = [];
+  currentPage: number = 1;
 
   constructor(private tmdSearchService: TmdSearchService) {}
 
@@ -38,10 +39,19 @@ export class TmdSearchComponent implements OnInit {
     const route = '/search/movie';
     this.tmdSearchService.searchMovie(route, this.prepareQueryParameters(page))
       .subscribe(
-          res => this.movies = res,
-          err => console.error(err),
-          () => {}
+        res => this.handleResponse(res),
+        err => console.error(err),
+        () => {}
       );
+  }
+
+  private handleResponse(response) {
+    this.movies = response;
+    this.pages.length = 0;
+    for(let i = 0; i < response.total_pages; ++i) {
+      this.pages.push(i + 1);
+    }
+    this.currentPage = response.page;
   }
 
   private prepareQueryParameters(page: number): SearchQueryParameters {
