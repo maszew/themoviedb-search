@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
 
+## Requirements
+
+Node 6.9.0 or higher is required, together with NPM 3 or higher. To use below commands Angular CLI must be globally installed via `npm install -g @angular/cli`.
+
+## Installation
+
+After cloning this repo, run `npm install` in the project folder. Then you need to generate your own API key to access https://api.themoviedb.org/3. This key should be pasted in the '%project%/src/app/tmd-search/config.json' file, instead of \<key>. Now you can use below commands and test the app.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
