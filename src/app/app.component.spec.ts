@@ -1,15 +1,34 @@
 import { TestBed, async } from '@angular/core/testing';
+import { Observable } from 'rxjs/Observable';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { TmdSearchService } from './tmd-search/tmd-search.service';
 import { TmdSearchComponent } from './tmd-search/tmd-search.component';
+import { SearchQueryParameters } from './tmd-search/search-query-parameters.model'
 
 describe('AppComponent', () => {
+
+  class TmdSearchServiceStub {
+    searchMovie(route: string, searchQueryParameters: SearchQueryParameters): Observable<any> {
+      return new Observable((observer) => {
+        observer.complete();
+      });
+    }
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         TmdSearchComponent
       ],
+      imports: [
+        FormsModule
+      ],
+      providers: [
+        {provide: TmdSearchService, useClass: TmdSearchServiceStub}
+      ]
     }).compileComponents();
   }));
 
