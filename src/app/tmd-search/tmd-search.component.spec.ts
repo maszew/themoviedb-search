@@ -1,24 +1,43 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
+import { FormsModule } from '@angular/forms';
 
 import { TmdSearchComponent } from './tmd-search.component';
 import { TmdSearchService } from './tmd-search.service';
+import { SearchQueryParameters } from './search-query-parameters.model'
 
 describe('TmdSearchComponent', () => {
   let component: TmdSearchComponent;
   let fixture: ComponentFixture<TmdSearchComponent>;
 
   class TmdSearchServiceStub {
-    makeRequest(route: string): Observable<any> {
+    searchMovie(route: string, searchQueryParameters: SearchQueryParameters): Observable<any> {
       return new Observable((observer) => {
         observer.complete();
       });
     }
   }
 
+  function initializeSearchQuery(
+    query: string = undefined,
+    page: number = undefined,
+    includeAdult: boolean = undefined,
+    year: number = undefined): SearchQueryParameters
+  {
+    let searchQueryParameters = new SearchQueryParameters();
+    searchQueryParameters.query = query;
+    if(typeof page !== 'undefined') {searchQueryParameters.page = page;}
+    if(typeof includeAdult !== 'undefined') {searchQueryParameters.include_adult = includeAdult;}
+    if(typeof year !== 'undefined') {searchQueryParameters.year = year;}
+    return searchQueryParameters;
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TmdSearchComponent],
+      imports: [
+        FormsModule
+      ],
       providers: [
         {provide: TmdSearchService, useClass: TmdSearchServiceStub}
       ]
@@ -48,4 +67,43 @@ describe('TmdSearchComponent', () => {
     expect(button).not.toBeNull();
     expect(button.innerHTML).toEqual('Search');
   });
+
+  it('should contain "for adult" checkbox', () => {
+    expect(component).toBeTruthy();
+    let checkbox = fixture.nativeElement.querySelector('input#tmd-for-adults');
+    expect(checkbox).not.toBeNull();
+  });
+
+  it('should return because search query is empty - default parameter',
+    inject([TmdSearchService], (tmdSearchService) =>
+  {
+    expect(component).toBeTruthy();
+    spyOn(tmdSearchService, 'searchMovie').and.callThrough();
+    component.search();
+    expect(tmdSearchService.searchMovie).not.toHaveBeenCalled();
+  }));
+
+  it('should generate proper url parameters - default parameter',
+    inject([TmdSearchService], (tmdSearchService) =>
+  {
+    let toCompare = initializeSearchQuery('Abc', 1, false);
+    expect(component).toBeTruthy();
+    spyOn(tmdSearchService, 'searchMovie').and.callThrough();
+    component.searchQuery = 'Abc';
+    component.search();
+    expect(tmdSearchService.searchMovie).toHaveBeenCalledWith(
+      '/search/movie', toCompare);
+  }));
+
+  it('should generate proper url parameters with page = 3',
+    inject([TmdSearchService], (tmdSearchService) =>
+  {
+    let toCompare = initializeSearchQuery('Abc', 3, false);
+    expect(component).toBeTruthy();
+    spyOn(tmdSearchService, 'searchMovie').and.callThrough();
+    component.searchQuery = 'Abc';
+    component.search(3);
+    expect(tmdSearchService.searchMovie).toHaveBeenCalledWith(
+      '/search/movie', toCompare);
+  }));
 });
