@@ -2,8 +2,9 @@
 @import 'variables';
 @import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
 
-*:focus {
-  outline: none;
+body {
+  background-color: #eeeeee;
+  min-width: 100%;
 }
 
 .font-bold {
