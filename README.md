@@ -1,6 +1,22 @@
-# ThemoviedbSearch
+# The Movie Database API search UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
+This is a user interface for The Movie Databse search API written in Angular 4.
+
+## About the project
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2. It uses Angular version 4 with Bootstrap ^3.3.7. Unit test were written using Jasmine and Karma the a test runner. Project is compatible with the official Angular 2/4 styleguide: https://angular.io/guide/styleguideBesides. Unit tests were written using Test-driven development (TDD). The main AppModule with app.component.ts and app.component.spec.ts (with unit tests) project was divided into several modules with their own components/services:
+
+- core - module with global services loaded once during application startup in the AppModule (services are singletons thus this module cannot be included anywhere else in the project)
+- shared - module with shared components without services, the components placed in here can be reused (included multiple times) within a project. Public functions are documented using JSDoc.
+- tmd-search - module with the search feature and user interface
+  - config.json - API configuration file (enter your API key here)
+  - search-query-parametrs.model.ts - Interface for the tmd-search.service with data structure
+  - tmd-search.component.ts - Component which implements user interface for the search
+  - tmd-search.component.spec.ts - Unit tests for the component
+  - tmd-search.component.html - HTML template for the component
+  - tmd-search.component.scss - SCSS/CSS styles for the HTML template
+  - tmd.search.service.ts - Service responsible for handling HTTP communication via GET request with a search parameters
+  - tmd.search.service.spec.ts - unit tests for the service
 
 ## Requirements
 
@@ -8,7 +24,7 @@ Node 6.9.0 or higher is required, together with NPM 3 or higher. To use below co
 
 ## Installation
 
-After cloning this repo, run `npm install` in the project folder. Then you need to generate your own API key to access https://api.themoviedb.org/3. This key should be pasted in the '%project%/src/app/tmd-search/config.json' file, instead of \<key>. Now you can use below commands and test the app.
+After cloning this repo, run `npm install` in the project folder. Then you need to generate your own API key to access https://api.themoviedb.org/3. This key should be pasted in the '%project%/src/app/tmd-search/config.json' file, instead of \<key>. Now you can use below commands and test the app. To serve the app invoke `ng serve` in the project folder and navigate to `http://localhost:4200` in the browser. To run unit tests with Karma invoke `ng test`.
 
 ## Development server
 
